@@ -1,6 +1,6 @@
 /**/vendor/*
-/application/logs/*
-/application/logs
+/logs/*
+/logs
 !/logs/README.md
 #/public/vendor
 #/data
