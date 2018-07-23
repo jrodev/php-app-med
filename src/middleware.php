@@ -2,3 +2,13 @@
 // Application middleware
 
 // e.g: $app->add(new \Slim\Csrf\Guard);
+$app->add(new \Slim\Middleware\Session([
+  'name' => 'dummy_session',
+  'autorefresh' => true,
+  'lifetime' => '1 hour'
+]));
+
+// Register globally to app
+$container['session'] = function ($c) {
+  return new \SlimSession\Helper;
+};
