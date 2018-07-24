@@ -73,6 +73,23 @@ foreach($fileList as $filename){
    echo $filename, '<br>';
 }
 */
+
+// Asignando los controllers al container
+// Lista de Controllers
+$ctrlls = [
+    "IndexController",
+    "MenuController"
+];
+// Agregando dinamicamente los controllers al container
+array_walk ($ctrlls, function (&$val, $key) use ($container) {
+    $className = "App\\Controllers\\{$val}";
+    //d($container, $className);
+    $container[$val] = function ($c) use ($className) {
+        $reflection = new ReflectionClass($className);
+        return $reflection->newInstanceArgs(array($c));
+    };
+});
+
 /*
 $container['MenuController'] = function ($c) {
 	return new App\Controllers\MenuController($c['view'], $c['router'], $c['loadJson']);
@@ -81,10 +98,8 @@ $container['MenuController'] = function ($c) {
 $container['CocinaController'] = function ($c) {
 	return new App\Controllers\CocinaController($c['view'], $c['router'], $c['loadJson']);
 };*/
-
-
-
+/*
 $container['HomeController'] = function ($c) {
     $settings = $c->get('settings');
 	return new App\Controllers\IndexController($settings, $c['view'], $c['router']);
-};
+};*/

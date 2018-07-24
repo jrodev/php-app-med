@@ -8,21 +8,20 @@ class Controller
     protected $cnf; // Settings o Config
     protected $view;
     protected $router;
-    protected $dataLoader = false;
+    protected $session;
 
     /**
      * La instanciación del controller se hace en dependencies.php
      * @param settings   $settings Variables configuracion
      * @param Twig       $view     Motor de plantillas
      * @param Routes     $router   Ruteo
-     * @param DataLoader $loadJson Carga el archivo employees,json
      */
-    public function __construct($settings, $view, $router, $loadJson=false)
+    public function __construct($container)
     {
-        $this->cnf = $settings;
-        $this->view = $view;
-        $this->router = $router; //d($router);
-        if($loadJson) { $this->dataLoader = $loadJson; }
+        $this->cnf     = $container->get('settings');
+        $this->view    = $container['view'];
+        $this->router  = $container['router']; //d($router);
+        $this->session = $container['session'];
     }
 
     public function render($resp, $view, $args = []) {

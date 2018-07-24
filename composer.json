@@ -39,6 +39,8 @@
     "scripts": {
         "start": "php -S 0.0.0.0:8787 -t public public/index.php",
         "test": "phpunit"
+    },
+    "config": {
+        "process-timeout": 1500
     }
-
 }

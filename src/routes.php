@@ -58,15 +58,14 @@ class NameSpaceFinder {
 
 }
 
-$app->get('[/[home[/index[/]]]]', 'HomeController:index');
+$app->get('[/[index[/index[/]]]]', 'IndexController:index');
 
 $app->get('/menu[/index[/]]', 'MenuController:index');
 
-$app->get('/cocina[/index[/]]', 'CocinaController:index');
+//$app->get('/cocina[/index[/]]', 'CocinaController:index');
 
 $app->get('/test', function ($request, $response, $args) {
 
-    $finder = new NameSpaceFinder();
-    var_dump($finder->getClassesOfNameSpace('Controllers'));
+    d($this->session); exit;
 
 });
