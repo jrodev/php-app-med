@@ -15,8 +15,21 @@ class IndexController extends Controller
     {
         //d($req); exit;
         $this->session->set('my_key', 'my_value');
+        //$this->logger->warning('Foo!');
+        $this->logger->error('Bar!!');
+
+        $a = function(int $int){
+            console.log($int);
+        };
+        $a("fooo");
+        
+        $b = 8/$a;
+        echo "<br>---->".$b;
 
         d($this->session->get('my_key'));
+
+
+
         exit;
         //d($req, $resp, $args); //exit;
         return $this->render($resp, 'index/index.twig');

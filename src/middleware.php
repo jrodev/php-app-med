@@ -13,6 +13,14 @@ $container['session'] = function ($c) {
   return new \SlimSession\Helper;
 };
 
+// Define a log middleware
+/*
+$app->add(function ($req, $res, $next) {
+    $return = $next($req, $res);
+    ErrorHandler::register($this->logger);
+    return $return;
+});*/
+
 
 // IMPLEMENTAR
 // https://blog.programster.org/slim3-use-middleware-to-check-user-is-logged-in
