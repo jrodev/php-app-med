@@ -14,21 +14,16 @@ class IndexController extends Controller
     public function index($req, $resp, $args)
     {
         //d($req); exit;
-        $this->session->set('my_key', 'my_value');
+
+        //$this->session->set('my_key', 'my_value');
+        //d($this->session->get('my_key'));
         //$this->logger->warning('Foo!');
-        $this->logger->error('Bar!!');
+        //$this->logger->error('Bar!!');
 
         $a = function(int $int){
-            console.log($int);
+            console.log($int)
         };
         $a("fooo");
-        
-        $b = 8/$a;
-        echo "<br>---->".$b;
-
-        d($this->session->get('my_key'));
-
-
 
         exit;
         //d($req, $resp, $args); //exit;

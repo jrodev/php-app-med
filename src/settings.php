@@ -15,7 +15,7 @@ return [
         'logger' => [
             'name' => 'php-app-med',
             'path' => __DIR__ . '/../logs/app.log',
-            'level' => \Monolog\Logger::DEBUG,
+            'level' => \Monolog\Logger::CRITICAL,
         ],
         'env' => getenv('APP_ENV'),
         'socket-url' => (getenv('APP_ENV')=='production') ? 'https://socket-menu.herokuapp.com' : 'http://192.168.10.17:8686'
