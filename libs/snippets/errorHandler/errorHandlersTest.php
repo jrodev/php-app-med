@@ -51,13 +51,3 @@ function shutdownHandler() //will be called when php script ends.
             echo $error . " fatal";
     }
 }
-
-/*
-COLOCAR ESTE CONDIGO EN OTRO ARCHIVO PARA PODER CAPTURAR LA RUTA DEL FILE AL MOSTRAR EL ERROR O EXEPCION
-*/
-$a = function ( $int) {
-    console.log($int);
-};
-$a(5);
-
-exit;

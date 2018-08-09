@@ -22,7 +22,7 @@ class Controller
         $this->view    = $container['view'];
         $this->router  = $container['router']; //d($router);
         $this->session = $container['session'];
-        //$this->logger  = $container['logger'];
+        $this->logger  = $container['logger'];
     }
 
     public function render($resp, $view, $args = []) {

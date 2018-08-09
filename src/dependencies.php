@@ -13,10 +13,24 @@ $container['renderer'] = function ($c) {
 $container['logger'] = function ($c) {
     $settings = $c->get('settings')['logger'];
     $logger = new Monolog\Logger($settings['name']);
+
     $logger->pushProcessor(new Monolog\Processor\UidProcessor());
+    $logger->pushProcessor(new Monolog\Processor\WebProcessor());
+
+    $logger->pushHandler(new Monolog\Handler\BrowserConsoleHandler());
     $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path'], $settings['level']));
+    //d(LogLevel);
+
+    /*$handler = new Monolog\ErrorHandler($logger);
+    $handler->registerErrorHandler([], false);
+    $handler->registerExceptionHandler();
+    $handler->registerFatalHandler();*/
+
+    //d($logger);
     return $logger;
 };
+// registrando en el handler
+Monolog\ErrorHandler::register($container['logger'], [], [], true);
 
 // Cargando motor de plantillas twig
 $container['view'] = function ($c) {

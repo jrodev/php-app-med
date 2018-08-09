@@ -21,9 +21,9 @@ class IndexController extends Controller
         //$this->logger->error('Bar!!');
 
         $a = function(int $int){
-            console.log($int)
-        };
-        $a("fooo");
+            console.log($int);
+        }
+        $a(1);
 
         exit;
         //d($req, $resp, $args); //exit;
