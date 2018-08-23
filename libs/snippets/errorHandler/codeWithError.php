@@ -1,5 +1,5 @@
 <?php
 $a = function ( $int) {
-    console.log($int)
+    console.log($int);
 };
 $a(5);

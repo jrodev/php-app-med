@@ -9,6 +9,10 @@ $container['renderer'] = function ($c) {
     return new Slim\Views\PhpRenderer($settings['template_path']);
 };
 
+//unset($app->getContainer()['errorHandler']);
+//unset($app->getContainer()['phpErrorHandler']);
+
+
 // monolog
 $container['logger'] = function ($c) {
     $settings = $c->get('settings')['logger'];
@@ -18,19 +22,39 @@ $container['logger'] = function ($c) {
     $logger->pushProcessor(new Monolog\Processor\WebProcessor());
 
     $logger->pushHandler(new Monolog\Handler\BrowserConsoleHandler());
-    $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path'], $settings['level']));
+    $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path']/*, $settings['level']*/));
     //d(LogLevel);
-
-    /*$handler = new Monolog\ErrorHandler($logger);
-    $handler->registerErrorHandler([], false);
-    $handler->registerExceptionHandler();
-    $handler->registerFatalHandler();*/
-
+    //
     //d($logger);
     return $logger;
 };
+
+
 // registrando en el handler
-Monolog\ErrorHandler::register($container['logger'], [], [], true);
+//Monolog\ErrorHandler::register($container['logger'], [], [], true);
+
+$handler = new Monolog\ErrorHandler($container['logger']);
+//$handler->registerErrorHandler([], false);
+//$handler->registerExceptionHandler();
+$handler->registerFatalHandler();
+
+
+/*
+$container['errorHandler'] = $container['phpErrorHandler'] = function ($c) {
+  return function ($request, $response, $exception) use ($c) {
+    $data = [
+      'code' => $exception->getCode(),
+      'message' => $exception->getMessage(),
+      'file' => $exception->getFile(),
+      'line' => $exception->getLine(),
+      'trace' => explode("\n", $exception->getTraceAsString()),
+    ];
+
+    return $c->get('response')->withStatus(500)
+             ->withHeader('Content-Type', 'application/json')
+             ->write(json_encode($data));
+  };
+};*/
 
 // Cargando motor de plantillas twig
 $container['view'] = function ($c) {

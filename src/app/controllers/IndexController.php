@@ -21,11 +21,11 @@ class IndexController extends Controller
         //$this->logger->error('Bar!!');
 
         $a = function(int $int){
-            console.log($int);
-        }
+            console.log($int)
+        };
         $a(1);
 
-        exit;
+        //exit;
         //d($req, $resp, $args); //exit;
         return $this->render($resp, 'index/index.twig');
     }
