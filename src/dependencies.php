@@ -9,9 +9,9 @@ $container['renderer'] = function ($c) {
     return new Slim\Views\PhpRenderer($settings['template_path']);
 };
 
-//unset($app->getContainer()['errorHandler']);
-//unset($app->getContainer()['phpErrorHandler']);
-
+// $container['phpErrorHandler'] Se define en SLIM en : vendor\slim\slim\Slim\DefaultServicesProvider.php line:133
+// unset($app->getContainer()['errorHandler']);
+unset($app->getContainer()['phpErrorHandler']);
 
 // monolog
 $container['logger'] = function ($c) {
@@ -30,17 +30,7 @@ $container['logger'] = function ($c) {
 };
 
 
-// registrando en el handler
-//Monolog\ErrorHandler::register($container['logger'], [], [], true);
-
-$handler = new Monolog\ErrorHandler($container['logger']);
-//$handler->registerErrorHandler([], false);
-//$handler->registerExceptionHandler();
-$handler->registerFatalHandler();
-
-
-/*
-$container['errorHandler'] = $container['phpErrorHandler'] = function ($c) {
+/*$container['errorHandler'] = $container['phpErrorHandler'] = function ($c) {
   return function ($request, $response, $exception) use ($c) {
     $data = [
       'code' => $exception->getCode(),
@@ -56,6 +46,20 @@ $container['errorHandler'] = $container['phpErrorHandler'] = function ($c) {
   };
 };*/
 
+// registrando en el handler
+//Monolog\ErrorHandler::register($container['logger'], [], [], true);
+
+
+$handler = new Monolog\ErrorHandler($container['logger']);
+
+$handler->registerErrorHandler([], false);
+$handler->registerExceptionHandler();
+$handler->registerFatalHandler();
+/*
+$handler::register($container['logger'], $errorLevelMap = false, $exceptionLevelMap = false);
+$handler->registerErrorHandler($levelMap = [], $callPrevious = false);
+$handler->registerExceptionHandler($levelMap = [], $callPrevious = false);
+*/
 // Cargando motor de plantillas twig
 $container['view'] = function ($c) {
     //nos indica el directorio donde están las plantillas
