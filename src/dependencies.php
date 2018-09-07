@@ -22,7 +22,7 @@ $container['logger'] = function ($c) {
     $logger->pushProcessor(new Monolog\Processor\WebProcessor());
 
     $logger->pushHandler(new Monolog\Handler\BrowserConsoleHandler());
-    $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path']/*, $settings['level']*/));
+    $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path'], $settings['level']));
     //d(LogLevel);
     //
     //d($logger);

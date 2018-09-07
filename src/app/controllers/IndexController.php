@@ -18,10 +18,10 @@ class IndexController extends Controller
         //$this->session->set('my_key', 'my_value');
         //d($this->session->get('my_key'));
         //$this->logger->warning('Foo!');
-        //$this->logger->error('Bar!!');
+        $this->logger->debug('Bar!!');
 
         $a = function(int $int){
-            console.log($int)
+            console.log($int);
         };
         $a(1);
 
