@@ -1,4 +1,4 @@
-<?php
+<?php //echo sprintf('%s\Module', "module"); exit;
 if  (PHP_SAPI == 'cli-server') {
     // To help the built-in PHP dev server, check if the request was actually for
     // something which should probably be served as a static file
@@ -18,13 +18,21 @@ $settings = require __DIR__ . '/../src/settings.php';
 $app = new \Slim\App($settings);
 
 // Set up dependencies
-require __DIR__ . '/../src/dependencies.php';
+//require __DIR__ . '/../src/dependencies.php';
 
 // Register middleware
-require __DIR__ . '/../src/middleware.php';
+//require __DIR__ . '/../src/middleware.php';
 
 // Register routes
-require __DIR__ . '/../src/routes.php';
+//require __DIR__ . '/../src/routes.php';
+
+$moduleInitializer = new \MartynBiz\Slim3Module\Initializer($app, ['App\Portal',
+     // <--- list of modules to autoload
+    /*'autoload' => [ 'Portal', ],
+    'modules_path' => '/../modules',*/
+]);
+
+$moduleInitializer->initModules();
 
 // Run app
 $app->run();
