@@ -8,13 +8,10 @@ namespace Libs\Modular;
 
 use Composer\Autoload\ClassLoader;
 
-/**
- * This will load modules
- */
 class Startup
 {
     /**
-     * @var Slim
+     * @var Slim App
      */
     protected $app;
 
