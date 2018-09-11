@@ -4,7 +4,7 @@ namespace App\Portal;
 use Composer\Autoload\ClassLoader;
 use Slim\App;
 use Slim\Container;
-use MartynBiz\Slim3Module\AbstractModule;
+use Libs\Modular\AbstractModule;
 
 class Module extends AbstractModule
 {

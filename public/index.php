@@ -26,7 +26,7 @@ $app = new \Slim\App($settings);
 // Register routes
 //require __DIR__ . '/../src/routes.php';
 
-$moduleInitializer = new \MartynBiz\Slim3Module\Initializer($app, ['App\Portal',
+$moduleInitializer = new \Libs\Modular\Startup($app, ['App\Portal',
      // <--- list of modules to autoload
     /*'autoload' => [ 'Portal', ],
     'modules_path' => '/../modules',*/
