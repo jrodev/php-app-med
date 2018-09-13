@@ -93,7 +93,6 @@ class Module extends AbstractModule
 
             // instancia y añade la extensión especifica de slim
             $basePath =  rtrim(str_ireplace('index.php', '', $c['request']->getUri()->getBasePath()), '/');
-
             $view->addExtension(new \Slim\Views\TwigExtension($c['router'], $basePath));
             return $view;
         };
@@ -122,9 +121,7 @@ class Module extends AbstractModule
     public function initMiddleware(App $app)
     {
         $app->add(new \Slim\Middleware\Session([
-          'name' => 'dummy_session',
-          //'autorefresh' => true,
-          'lifetime' => '5 min'
+          'name'=>'dummy_session', 'lifetime'=>'5 min'/*,'autorefresh' => true*/
         ]));
 
         // Register globally to app
@@ -136,15 +133,10 @@ class Module extends AbstractModule
     public function initRoutes(App $app)
     {
         $app->get('[/[index[/index[/]]]]', 'IndexController:index');
-
         $app->get('/menu[/index[/]]', 'MenuController:index');
-
         //$app->get('/cocina[/index[/]]', 'CocinaController:index');
-
         $app->get('/test', function ($request, $response, $args) {
-
             d($this->session); exit;
-
         });
     }
 }
