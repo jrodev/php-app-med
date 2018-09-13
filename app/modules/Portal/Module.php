@@ -11,9 +11,7 @@ class Module extends AbstractModule
     public function getModuleConfig()
     {
         return [
-            'renderer' => [
-                'template_path' => __DIR__ . '/app/views/',
-            ],
+            'renderer' => [ 'template_path' => __DIR__ . '/app/views/' ]
         ];
     }
 
@@ -63,8 +61,9 @@ class Module extends AbstractModule
         // Cargando motor de plantillas twig
         $container['view'] = function ($c) {
             //nos indica el directorio donde están las plantillas
-            $settings = $c->get('settings');
+            $settings = $c->get('settings'); d("settings:",$settings);
             $rendered = $settings['renderer'];
+            d($rendered);
             // puede ser false o el directorio donde se guardará la cache
             $view = new \Slim\Views\Twig( __DIR__ . "/views" , ['cache' => false]);
 

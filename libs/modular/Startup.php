@@ -18,11 +18,6 @@ class Startup
     /**
      * @var array
      */
-    protected $initializerSettings;
-
-    /**
-     * @var array
-     */
     protected $moduleInstances = [];
 
     public function __construct($app, $modules=array())
@@ -42,94 +37,71 @@ class Startup
      */
     public function initModules()
     {
-        $moduleInstances = $this->moduleInstances;
-        $app = $this->app;
-        $container = $app->getContainer();
-
+        $container = $this->app->getContainer();
         // $this->initClassLoader($classLoader);
-        $this->initModuleConfig();
+        $this->initModuleConfig($container);
         $this->initDependencies($container);
-        $this->initMiddleware($app);
-        $this->initRoutes($app);
+        $this->initMiddleware($this->app);
+        $this->initRoutes($this->app);
     }
 
     /**
-     * Load the module. This will run for all modules, use for routes mainly
-     * @param string $moduleName Module name
+     * Recolectando los configs's de todos los modulos
      */
-    public function getModuleConfig()
+    private function getAllConfig()
     {
-        $moduleInstances = $this->moduleInstances;
-
-        $allModules = [];
-        foreach ($moduleInstances as $moduleName => $module) {
-            $moduleSettings = $module->getModuleConfig();
-            $allModules[$moduleName] = $module->getModuleConfig();
+        $allConfigs = [];
+        foreach ($this->moduleInstances as $moduleName => $module) {
+            $allConfigs[$moduleName] = $module->getModuleConfig();
         }
-
-        return $allModules;
+        return $allConfigs;
     }
 
     /**
-     * Load the module. This will run for all modules, use for routes mainly
-     * @param string $moduleName Module name
+     * Almacenando los config's de todos los modulos debajo del nombre asociativo: "modules"
+     * @param Container $container Container instancia
      */
-    public function initModuleConfig()
+    private function initModuleConfig($container)
     {
-        $app = $this->app;
-        $container = $app->getContainer();
-
         $allSettings = $container['settings']->all();
+
         if (!isset($allSettings['modules']) or !is_array($allSettings['modules'])) {
             $allSettings['modules'] = [];
         }
 
-        $allSettings['modules'] = array_merge_recursive($allSettings['modules'], $this->getModuleConfig());
+        $allSettings = array_merge_recursive($allSettings, $this->getAllConfig());
         $container['settings']->__construct( $allSettings );
     }
 
     /**
-     * Load the module. This will run for all modules, use for routes mainly
-     * @param string $moduleName Module name
+     * inicializando dependencias, ejecutando initDependencies() de cada modulo.
+     * @param Container $container Container instancia
      */
-    public function initDependencies()
+    public function initDependencies($container)
     {
-        $moduleInstances = $this->moduleInstances;
-        $app = $this->app;
-        $container = $app->getContainer();
-
-        // next, init dependencies of all modules now that we have settings, class maps etc
-        foreach ($moduleInstances as $module) {
+        foreach ($this->moduleInstances as $module) {
             $module->initDependencies($container);
         }
     }
 
     /**
      * Load the module. This will run for all modules, use for routes mainly
-     * @param string $moduleName Module name
+     * @param Slim $app App instancia
      */
-    public function initMiddleware()
+    public function initMiddleware($app)
     {
-        $moduleInstances = $this->moduleInstances;
-        $app = $this->app;
-
-        // next, init app middleware of all modules now that we have settings, class maps, dependencies etc
-        foreach ($moduleInstances as $module) {
+        foreach ($this->moduleInstances as $module) {
             $module->initMiddleware($app);
         }
     }
 
     /**
-     * Load the module. This will run for all modules, use for routes mainly
-     * @param string $moduleName Module name
+     * Cargar los routers de todos los modulos
+     * @param Slim $app App instancia
      */
-    public function initRoutes()
+    public function initRoutes($app)
     {
-        $moduleInstances = $this->moduleInstances;
-        $app = $this->app;
-
-        // lastly, routes
-        foreach ($moduleInstances as $module) {
+        foreach ($this->moduleInstances as $module) {
             $module->initRoutes($app);
         }
     }
