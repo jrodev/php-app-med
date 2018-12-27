@@ -60,11 +60,10 @@ class Startup
     public function getModuleConfig()
     {
         $moduleInstances = $this->moduleInstances;
-
         $allModules = [];
         foreach ($moduleInstances as $moduleName => $module) {
-            $moduleSettings = $module->getModuleConfig();
-            $allModules[$moduleName] = $module->getModuleConfig();
+            // $moduleSettings = $module->getConfig();
+            $allModules[$moduleName] = $module->getConfig();
         }
 
         return $allModules;

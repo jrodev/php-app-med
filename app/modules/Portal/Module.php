@@ -8,11 +8,11 @@ use Libs\Modular\AbstractModule;
 
 class Module extends AbstractModule
 {
-    public function getModuleConfig()
+    public function getConfig()
     {
         return [
             'renderer' => [
-                'template_path' => __DIR__ . '/app/views/',
+                'template_path' => __DIR__ . "/views",
             ],
         ];
     }
@@ -24,7 +24,10 @@ class Module extends AbstractModule
 
     public function initDependencies(Container $container)
     {
-        // $container['phpErrorHandler'] Se define en SLIM en : vendor\slim\slim\Slim\DefaultServicesProvider.php line:133
+        // $container['phpErrorHandler'] Se define en SLIM en :
+        // vendor\slim\slim\Slim\DefaultServicesProvider.php line:133
+
+        // Al hacer esto, el error se registra en el logError y no se muestra en Web
         // unset($app->getContainer()['errorHandler']);
         unset($container['phpErrorHandler']);
 
@@ -66,7 +69,8 @@ class Module extends AbstractModule
             $settings = $c->get('settings');
             $rendered = $settings['renderer'];
             // puede ser false o el directorio donde se guardará la cache
-            $view = new \Slim\Views\Twig( __DIR__ . "/views" , ['cache' => false]);
+            d($rendered["template_path"]);
+            $view = new \Slim\Views\Twig($rendered["template_path"] , ['cache' => false]);
 
             // Vie Helpers
             $twig = $view->getEnvironment();
