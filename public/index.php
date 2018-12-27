@@ -18,21 +18,15 @@ $settings = require __DIR__ . '/../app/settings.php';
 $app = new \Slim\App($settings);
 
 // Set up dependencies
-//require __DIR__ . '/../src/dependencies.php';
+require __DIR__ . '/../app/dependencies.php';
 
-// Register middleware
-//require __DIR__ . '/../src/middleware.php';
+//require __DIR__ . '/../src/middleware.php'; // Register middleware
+//require __DIR__ . '/../src/routes.php'; // Register routes
 
-// Register routes
-//require __DIR__ . '/../src/routes.php';
-
-$moduleInitializer = new \Libs\Modular\Startup($app, ['App\Portal',
-     // <--- list of modules to autoload
-    /*'autoload' => [ 'Portal', ],
-    'modules_path' => '/../modules',*/
+$moduleInitializer = new \Libs\Modular\Startup($app, [
+    'App\Portal',
 ]);
 
 $moduleInitializer->initModules();
 
-// Run app
-$app->run();
+$app->run(); // Run app

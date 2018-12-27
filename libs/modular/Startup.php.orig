@@ -50,9 +50,17 @@ class Startup
      */
     private function getAllConfig()
     {
+<<<<<<< HEAD
+        $moduleInstances = $this->moduleInstances;
+        $allModules = [];
+        foreach ($moduleInstances as $moduleName => $module) {
+            // $moduleSettings = $module->getConfig();
+            $allModules[$moduleName] = $module->getConfig();
+=======
         $allConfigs = [];
         foreach ($this->moduleInstances as $moduleName => $module) {
             $allConfigs[$moduleName] = $module->getModuleConfig();
+>>>>>>> 5702740ebfcf7704e9b8c80d20490e9a2dbe5687
         }
         return $allConfigs;
     }

@@ -39,3 +39,19 @@ class DataLoader {
 		return $this->path . "$file.json";
 	}
 }
+
+/*
+// Implemente Slim Framework
+// Cargando libreria para cargar JSON
+
+$container['loadJson'] = function ($c) {
+	$jsonPath = $c->get('settings')['jsonPath'];
+	$capsule = new \Libs\DataLoader($jsonPath);
+	return $capsule;
+};
+
+// uso
+// file: data/foods.json debe existir
+
+$aFoods = $container['loadJson']->load('foods');
+*/
