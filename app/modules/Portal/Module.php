@@ -29,7 +29,7 @@ class Module extends AbstractModule
 
         // Al hacer esto, el error se registra en el logError y no se muestra en Web
         // unset($app->getContainer()['errorHandler']);
-        unset($container['phpErrorHandler']);
+        // unset($container['phpErrorHandler']);
 
         // monolog
         $container['logger'] = function ($c) {
@@ -69,7 +69,7 @@ class Module extends AbstractModule
             $settings = $c->get('settings');
             $rendered = $settings['renderer'];
             // puede ser false o el directorio donde se guardará la cache
-            d($rendered["template_path"]);
+            //d($settings,$rendered["template_path"]);
             $view = new \Slim\Views\Twig($rendered["template_path"] , ['cache' => false]);
 
             // Vie Helpers

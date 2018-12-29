@@ -52,7 +52,7 @@ class Startup
     {
         $allConfigs = [];
         foreach ($this->moduleInstances as $moduleName => $module) {
-            $allConfigs[$moduleName] = $module->getModuleConfig();
+            $allConfigs[$moduleName] = $module->getConfig();
         }
         return $allConfigs;
     }
@@ -63,6 +63,7 @@ class Startup
      */
     private function initModuleConfig($container)
     {
+        !d($container['settings']);
         $allSettings = $container['settings']->all();
 
         if (!isset($allSettings['modules']) or !is_array($allSettings['modules'])) {

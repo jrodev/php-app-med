@@ -6,7 +6,7 @@ return [
 
         // Renderer settings
         'renderer' => [
-            //'template_path' => __DIR__ . '/modules/Portal/views/',
+            'template_path' => __DIR__ . '/modules/Portal/views/',
         ],
 
 		'jsonPath' => __DIR__ . '/../data/',
